@@ -83,6 +83,16 @@ class Charts {
       animation: {
         animateScale: true,
         animateRotate: true
+      },
+      tooltips: {
+        enabled: true,
+        mode: 'single',
+        callbacks: {
+          label: function label(tooltipItems, data) {
+            const val = data.datasets[0].data[tooltipItems.index]
+            return `Repeticiones: ${val} , Promedio: ${val / 500} `//formatter.format(data.datasets[0].data[tooltipItems.index]);
+          }
+        }
       }
     }
     const ctx = document.getElementById('chart'); // .getContext('2d')
