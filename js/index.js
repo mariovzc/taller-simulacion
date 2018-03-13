@@ -1,4 +1,6 @@
 // clase charts
+const frecuencia_observada = [1,2,3,4,5,6,5,4,3,2,1]
+
 class Charts {
   // generar datos de la aplicaccion
   generateData () {
@@ -16,7 +18,6 @@ class Charts {
       11: 0,
       12: 0
     }
-    const frecuencia_observada = [1,2,3,4,5,6,5,4,3,2,1]
     let obj = {
       data: {
           labels: [],
@@ -30,7 +31,7 @@ class Charts {
               {
                 backgroundColor: "rgba(103, 58, 183, 0.51)",
                 data: [],
-                label: "Frecuencia Observada",
+                label: "Frecuencia Relativa Absoluta",
                 fill: "start"
               }              
             ]
@@ -113,6 +114,7 @@ class Charts {
           <th scope="row" class="text-center">${key}</th>
           <td class="text-center">${data[key]}</td>
           <td class="text-center">${(data[key] / 500)}</td>
+          <td class="text-center">${(frecuencia_observada[key-2] / 36).toFixed(5)}</td>
         </tr>
       `
     }
