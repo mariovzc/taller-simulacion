@@ -16,15 +16,24 @@ class Charts {
       11: 0,
       12: 0
     }
+    const frecuencia_observada = [1,2,3,4,5,6,5,4,3,2,1]
     let obj = {
       data: {
           labels: [],
-            datasets: [{
-              backgroundColor: "#3F51B5",
+            datasets: [
+              {
+                backgroundColor: "rgba(63, 81, 181, 0.51)",
+                  data: [],
+                  label: "Bondad de ajuste",
+                  fill: "start"
+              },
+              {
+                backgroundColor: "rgba(103, 58, 183, 0.51)",
                 data: [],
-                label: "numeros",
+                label: "Frecuencia Observada",
                 fill: "start"
-            }]
+              }              
+            ]
         }
     }
 
@@ -60,11 +69,17 @@ class Charts {
     this.datos = counts
     for (let key in counts ) {
       let value = counts[key]
-        let prom = value
+        let prom = value / 500
 
       obj.data.labels.push(key)
-        obj.data.datasets[0].data.push(prom)
+      obj.data.datasets[0].data.push(prom)
     }
+    frecuencia_observada.forEach(n => {
+      let value = n / 36
+      value = value.toFixed(5)
+      obj.data.datasets[1].data.push(value)
+
+    })
     return obj.data;
   }
   // genera la grafica
@@ -75,25 +90,12 @@ class Charts {
         mode: 'index',
         intersect: false
       },
-      legend: {
-        display: false
-      },
       responsive: true,
       maintainAspectRatio: true,
       animation: {
         animateScale: true,
         animateRotate: true
-      },
-      tooltips: {
-        enabled: true,
-        mode: 'single',
-        callbacks: {
-          label: function label(tooltipItems, data) {
-            const val = data.datasets[0].data[tooltipItems.index]
-            return `Repeticiones: ${val} , Promedio: ${val / 500} `//formatter.format(data.datasets[0].data[tooltipItems.index]);
-          }
-        }
-      }
+      }      
     }
     const ctx = document.getElementById('chart'); // .getContext('2d')
     const myLinesChart = new Chart(ctx, {
